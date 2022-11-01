@@ -1,0 +1,38 @@
+<div id="component">
+    <app-head [pageTitle]="pageTitle"></app-head>
+    
+    <main id="main">
+        <br><a routerLink="/empl/create">Create New</a> | 
+        <input [(ngModel)]="searchCriteria" placeholder="Employee Search" class="noborder">
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th><button (click)="sortBy('name')" class="btn btn-link">Name</button></th>
+                    <th><button (click)="sortBy('email')" class="btn btn-link">Email</button></th>
+                    <th>Admin</th>
+                    <th>Expenses Due</th>
+                    <th>Expenses Paid</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of empls | employeeSearch:searchCriteria | sort:sortColumn:sortAsc">
+                    <td>{{e.id}}</td>
+                    <td>{{e.name}}</td>
+                    <td>{{e.email}}</td>
+                    <td>{{e.admin | bool }}</td>
+                    <td>{{e.expensesDue | currency}}</td>
+                    <td>{{e.expensesPaid | currency}}</td>
+                    <td>
+                        <a routerLink="/empl/detail/{{e.id}}">Detail</a> &nbsp;|&nbsp; 
+                        <a routerLink="/empl/change/{{e.id}}">Edit</a>
+                    </td>
+                 </tr>
+            </tbody>
+        </table>
+    </main>
+    
+    <app-foot></app-foot>
+</div>
+
